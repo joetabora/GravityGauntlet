@@ -1,0 +1,23 @@
+# Node
+node_modules/
+**/node_modules/
+
+# Builds
+client/dist/
+server/dist/
+**/build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env
+.env
+.env.local
+
+# Vite / coverage
+*.local
+*.log
+coverage/
+.DS_Store

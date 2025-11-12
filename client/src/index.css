@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  font-family: 'Press Start 2P', 'Pixel', monospace;
+  font-size: 14px;
+  color: #fdf6ff;
+  background: radial-gradient(circle at top, #140032, #050012 60%);
+  text-rendering: geometricPrecision;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 0, 160, 0.35), transparent 60%),
+    radial-gradient(circle at 80% 0%, rgba(0, 255, 255, 0.25), transparent 55%), #040013;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+}
