@@ -54,7 +54,9 @@ if (process.env.NODE_ENV === 'production') {
   // This allows React Router to handle client-side routing (e.g., /game, /lobby)
   // Note: /health endpoint is already handled above, so health checks won't reach here
   // This catch-all handles / (root) and all other routes, serving the React app
-  app.get('*', (_req, res) => {
+  // IMPORTANT: Express 5+ no longer supports '*' wildcard syntax in route paths
+  // Use app.use() without a path parameter to create a catch-all middleware
+  app.use((req, res) => {
     res.sendFile(path.join(clientDistPath, 'index.html'));
   });
 }
