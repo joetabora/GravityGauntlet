@@ -1,9 +1,12 @@
 import { io, Socket } from 'socket.io-client';
 import type { AvatarType, GameSnapshot, LobbyPlayer } from './types';
 
+// Get backend API URL from environment variable
+// In production (Vercel), this should be set to the Render backend URL
+// In local development, defaults to http://localhost:10000
 const SERVER_URL =
-  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SERVER_URL) ||
-  'http://localhost:4000';
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) ||
+  'http://localhost:10000';
 
 interface JoinedPayload {
   playerId: string;

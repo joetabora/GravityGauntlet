@@ -9,9 +9,9 @@ const path = require('path');
 const { Server } = require('socket.io');
 const { GravityGauntletGame } = require('./game');
 
-// Get port from environment variable, or default to 3000 for Render compatibility
+// Get port from environment variable, or default to 10000 for local development
 // Render will automatically set PORT when deploying
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 // Create Express application
 // Express handles HTTP requests and responses
@@ -19,7 +19,15 @@ const app = express();
 
 // Enable CORS (Cross-Origin Resource Sharing)
 // This allows the React frontend (running on a different port in development) to connect
-app.use(cors());
+// In production, use CLIENT_URL from environment variable for security
+const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+app.use(
+  cors({
+    origin: clientUrl,
+    methods: ['GET', 'POST'],
+    credentials: true,
+  }),
+);
 
 // Health check endpoints - MUST be defined BEFORE static file serving
 // Render uses these to verify the server is running
@@ -67,10 +75,13 @@ const httpServer = http.createServer(app);
 
 // Initialize Socket.io server
 // Socket.io enables real-time bidirectional communication between client and server
-// We configure CORS to allow connections from any origin (in production, you might want to restrict this)
+// Configure CORS to allow connections from the frontend URL (from environment variable)
+// This ensures WebSocket connections work in production between Vercel (frontend) and Render (backend)
 const io = new Server(httpServer, {
   cors: {
-    origin: '*',
+    origin: clientUrl,
+    methods: ['GET', 'POST'],
+    credentials: true,
   },
 });
 
